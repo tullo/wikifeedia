@@ -39,7 +39,7 @@ func (c *Crawler) crawlProjectOnce(ctx context.Context, project string) (err err
 	start := time.Now()
 	defer func() {
 		if err != nil {
-			fmt.Println("crawl of %s took %v", project, time.Since(start))
+			fmt.Printf("crawl of %s took %v\n", project, time.Since(start))
 		}
 	}()
 	if err := c.fetchNewTopArticles(ctx, project); err != nil {

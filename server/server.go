@@ -16,8 +16,6 @@ import (
 	"github.com/tullo/wikifeedia/wikipedia"
 )
 
-//go:generate go run github.com/shurcooL/vfsgen/cmd/vfsgendev -source="github.com/tullo/wikifeedia/server".Assets
-
 // Server is an http.Handler for a graphql server for this application.
 type Server struct {
 	db  *db.DB
@@ -25,14 +23,14 @@ type Server struct {
 }
 
 // New creates a new Server.
-func New(conn *db.DB) *Server {
+func New(conn *db.DB, assetsFS http.FileSystem) *Server {
 	s := &Server{
 		db: conn,
 	}
 	schema := s.schema()
 
 	introspection.AddIntrospectionToSchema(schema)
-	fs := http.FileServer(Assets)
+	fs := http.FileServer(assetsFS)
 	graphqlHandler := graphql.HTTPHandler(schema)
 	s.mux.Handle("/graphqlhttp", gziphandler.GzipHandler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -88,7 +86,7 @@ func (s *Server) getArticles(
 			asOf, time.Since(start))
 	}()
 	if !wikipedia.IsProject(args.Project) {
-		return nil, fmt.Errorf("%s is not a valid project")
+		return nil, fmt.Errorf("%s is not a valid project", args.Project)
 	}
 	articles, newAsOf, err := s.db.GetArticles(ctx, args.Project, int(args.Offset), int(args.Limit),
 		args.FollowerRead != nil && *args.FollowerRead, asOf)

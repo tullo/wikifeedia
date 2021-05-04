@@ -7,7 +7,6 @@ ROOT="$(cd $DIRNAME; pwd)"
 
 main() {
   build_app
-  generate
   build_bin
 }
 

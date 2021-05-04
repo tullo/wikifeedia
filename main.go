@@ -11,6 +11,7 @@ import (
 	"crypto/x509"
 	"crypto/x509/pkix"
 	"fmt"
+	"io/fs"
 	"math/big"
 	"net/http"
 	"os"
@@ -77,7 +78,11 @@ func main() {
 				if err != nil {
 					return err
 				}
-				h := server.New(conn)
+				buildFS, err := fs.Sub(Assets, "app/build")
+				if err != nil {
+					return err
+				}
+				h := server.New(conn, http.FS(buildFS))
 				server := http.Server{
 					Addr:    fmt.Sprintf(":%d", c.Int("port")),
 					Handler: h,
