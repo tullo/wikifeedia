@@ -13,7 +13,7 @@ main() {
 
 build_app() {
   pushd "${ROOT}/app"
-  yarn build
+  npm run build
   popd
 }
 
