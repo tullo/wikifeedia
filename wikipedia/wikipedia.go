@@ -71,7 +71,7 @@ func New() *Client {
 
 type PageViewEntry struct {
 	Project string `json:"project"`
-	Article string `json:"article`
+	Article string `json:"article"`
 }
 
 type TopPageviews struct {
