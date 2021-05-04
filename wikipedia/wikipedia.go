@@ -197,7 +197,7 @@ func (c *Client) GetArticleSummary(
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
 		respBody, _ := ioutil.ReadAll(resp.Body)
-		return summary, fmt.Errorf("Unexpected status code %v: resp %s", resp.StatusCode, respBody)
+		return summary, fmt.Errorf("unexpected status code %v: resp %s", resp.StatusCode, respBody)
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&summary); err != nil {
 		return ArticleSummary{}, err
@@ -224,7 +224,7 @@ func (c *Client) GetArticleMedia(
 	}
 	if resp.StatusCode != 200 {
 		respBody, _ := ioutil.ReadAll(resp.Body)
-		return nil, fmt.Errorf("Unexpected status code %v: resp %s", resp.StatusCode, respBody)
+		return nil, fmt.Errorf("unexpected status code %v: resp %s", resp.StatusCode, respBody)
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
 		return nil, err
@@ -249,7 +249,7 @@ func (c *Client) FetchTopArticles(ctx context.Context, project string) (*TopPage
 	}
 	if resp.StatusCode != 200 {
 		respBody, _ := ioutil.ReadAll(resp.Body)
-		return nil, fmt.Errorf("Unexpected status code %v: resp %s", resp.StatusCode, respBody)
+		return nil, fmt.Errorf("unexpected status code %v: resp %s", resp.StatusCode, respBody)
 	}
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
 		return nil, err

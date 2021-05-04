@@ -4,11 +4,11 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'build',
-          '-t', 'gcr.io/$PROJECT_ID/cockroachlabs/wikifeedia:$BRANCH_NAME',
-          '-t', 'gcr.io/$PROJECT_ID/cockroachlabs/wikifeedia:$SHORT_SHA',
+          '-t', 'gcr.io/$PROJECT_ID/tullo/wikifeedia:$BRANCH_NAME',
+          '-t', 'gcr.io/$PROJECT_ID/tullo/wikifeedia:$SHORT_SHA',
           '.'
   ]
 images:
-- 'gcr.io/$PROJECT_ID/cockroachlabs/wikifeedia:$BRANCH_NAME'
-- 'gcr.io/$PROJECT_ID/cockroachlabs/wikifeedia:$SHORT_SHA'
+- 'gcr.io/$PROJECT_ID/tullo/wikifeedia:$BRANCH_NAME'
+- 'gcr.io/$PROJECT_ID/tullo/wikifeedia:$SHORT_SHA'
 
