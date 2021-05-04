@@ -118,7 +118,7 @@ const (
 // GetArticles returns the list of articles.
 func (db *DB) GetArticles(
 	ctx context.Context, project string, offset, limit int, followerRead bool, asOf string,
-) (_ []Article, newAsOf string, _ error) {
+) ([]Article, string, error) {
 	stmt := db.getArticles.Name
 	if followerRead && asOf == "" {
 		stmt = db.getArticlesFollowerRead.Name

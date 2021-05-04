@@ -86,9 +86,11 @@ func TestDB(t *testing.T) {
 	for _, a := range articles {
 		assert.Nil(t, db.UpsertArticle(ctx, a))
 	}
-	got, err := db.GetArticles(ctx, "en", 0, 1000, false /* useFollowerRead */)
+	got, asOf, err := db.GetArticles(ctx, "en", 0, 1000, false, "")
+
 	assert.Nil(t, err)
 	assert.Len(t, got, 2)
 	assert.Equal(t, articles[1], got[0])
 	assert.Equal(t, articles[0], got[1])
+	assert.Equal(t, asOf, "")
 }
