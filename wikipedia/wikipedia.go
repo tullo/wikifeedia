@@ -36,7 +36,6 @@ var Projects = []string{
 }
 
 const wikimediaURL = "https://wikimedia.org/api/rest_v1"
-const wikipediaURL = "https://en.wikipedia.org/api/rest_v1"
 
 var apiURLs = func() map[string]string {
 	ret := make(map[string]string, len(Projects))
