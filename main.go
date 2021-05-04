@@ -16,11 +16,11 @@ import (
 	"os"
 	"time"
 
-	"github.com/cockroachlabs/wikifeedia/crawler"
-	"github.com/cockroachlabs/wikifeedia/db"
-	"github.com/cockroachlabs/wikifeedia/server"
-	"github.com/cockroachlabs/wikifeedia/wikipedia"
 	"github.com/pkg/errors"
+	"github.com/tullo/wikifeedia/crawler"
+	"github.com/tullo/wikifeedia/db"
+	"github.com/tullo/wikifeedia/server"
+	"github.com/tullo/wikifeedia/wikipedia"
 	"github.com/urfave/cli"
 )
 

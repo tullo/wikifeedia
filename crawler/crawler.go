@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/cockroachlabs/wikifeedia/db"
-	"github.com/cockroachlabs/wikifeedia/wikipedia"
+	"github.com/tullo/wikifeedia/db"
+	"github.com/tullo/wikifeedia/wikipedia"
 	"golang.org/x/sync/errgroup"
 )
 

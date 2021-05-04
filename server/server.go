@@ -8,15 +8,15 @@ import (
 	"time"
 
 	"github.com/NYTimes/gziphandler"
-	"github.com/cockroachlabs/wikifeedia/db"
-	"github.com/cockroachlabs/wikifeedia/wikipedia"
 	"github.com/samsarahq/thunder/graphql"
 	"github.com/samsarahq/thunder/graphql/graphiql"
 	"github.com/samsarahq/thunder/graphql/introspection"
 	"github.com/samsarahq/thunder/graphql/schemabuilder"
+	"github.com/tullo/wikifeedia/db"
+	"github.com/tullo/wikifeedia/wikipedia"
 )
 
-//go:generate go run github.com/shurcooL/vfsgen/cmd/vfsgendev -source="github.com/cockroachlabs/wikifeedia/server".Assets
+//go:generate go run github.com/shurcooL/vfsgen/cmd/vfsgendev -source="github.com/tullo/wikifeedia/server".Assets
 
 // Server is an http.Handler for a graphql server for this application.
 type Server struct {
