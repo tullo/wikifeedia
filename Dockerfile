@@ -1,20 +1,18 @@
-FROM golang:1.12
-ENV workdir /build
-WORKDIR $workdir
-COPY . .
-
-RUN apt-get update
-RUN apt-get install -y nodejs
-RUN curl https://www.npmjs.com/install.sh | sh
-RUN npm install -g yarn
+FROM golang:1.17.5-alpine3.15 as build_stage
+RUN apk --no-cache add nodejs npm
 WORKDIR /build/app
-RUN yarn
-RUN yarn build
-WORKDIR $workdir
-RUN go generate ./...
-RUN go install -v .
+COPY app/package.json package.json
+COPY app/package-lock.json package-lock.json
+RUN npm install
+WORKDIR /build
+COPY . .
+WORKDIR /build/app
+RUN npm run build
+WORKDIR /build
+RUN go build
 
-VOLUME ["/data"]
+FROM alpine:3.15
 WORKDIR /data
-CMD ["wikifeedia"]
-
+COPY --from=build_stage /build/wikifeedia /data/wikifeedia
+VOLUME ["/data"]
+CMD ["/data/wikifeedia"]
