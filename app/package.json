@@ -1,6 +1,6 @@
 {
   "name": "app",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "@apollo/react-hooks": "^3.0.1",
@@ -13,8 +13,9 @@
     "react": "^16.14.0",
     "react-apollo": "^2.5.8",
     "react-dom": "^16.14.0",
-    "react-scripts": "^4.0.3",
-    "subscriptions-transport-ws": "^0.9.18"
+    "react-scripts": "^3.4.4",
+    "subscriptions-transport-ws": "^0.9.18",
+    "webpack": "^4.42.0"
   },
   "scripts": {
     "start": "react-scripts start",
