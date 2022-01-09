@@ -12,6 +12,7 @@ main() {
 
 build_app() {
   pushd "${ROOT}/app"
+  [ ! -d "node_modules" ] && npm install
   npm run build
   popd
 }
