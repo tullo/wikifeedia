@@ -1,4 +1,4 @@
-FROM golang:1.17.5-alpine3.15 as build_stage
+FROM golang:1.17.6-alpine3.15 as build_stage
 RUN apk --no-cache add nodejs npm
 WORKDIR /build/app
 COPY app/package.json package.json
