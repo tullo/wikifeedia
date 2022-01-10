@@ -88,13 +88,13 @@ func (s *Server) getArticles(
 	if !wikipedia.IsProject(args.Project) {
 		return nil, fmt.Errorf("%s is not a valid project", args.Project)
 	}
-	articles, newAsOf, err := s.db.GetArticles(ctx, args.Project, int(args.Offset), int(args.Limit),
+	articles, _, err := s.db.GetArticles(ctx, args.Project, int(args.Offset), int(args.Limit),
 		args.FollowerRead != nil && *args.FollowerRead, asOf)
 	if err != nil {
 		return nil, err
 	}
 	return &ArticlesResponse{
-		AsOf:     newAsOf,
+		AsOf:     "",
 		Articles: articles,
 	}, nil
 }
