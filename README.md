@@ -16,3 +16,24 @@ The server provides a minimal graphql schema to retrieve the articles and serves
 The backend is deployed on [k8s](./k8s) with servers running in multiple regions and a crawler run as a cron job in just one.
 
 The web [app](./app) uses React and Apollo.
+
+## Local Dev
+
+```sh
+# build web assets and Go binary.
+`./build.sh`
+
+# fetch top articles for the default project (en)
+./wikifeedia fetch-top-articles
+
+# start web server.
+./wikifeedia --pgurl=postgresql://root@localhost:26257/wikifeedia?sslmode=disable server --port 9090
+
+# crawl top pages for wikifeedia projects.
+./wikifeedia --pgurl=postgresql://root@localhost:26257/wikifeedia?sslmode=disable crawl
+
+# check amount of crawled articles
+cockroach sql --url postgresql://root@localhost:26257/wikifeedia?sslmode=disable -e "select count(*) from articles;"
+```
+Screenshot (2022-01-10)
+![Screenshot (2022-01-10)](Screenshot.png)
