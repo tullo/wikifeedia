@@ -129,11 +129,11 @@ func (db *DB) GetArticles(
 	ctx context.Context, project string, offset, limit int, followerRead bool, asOf string,
 ) ([]Article, string, error) {
 	stmt := db.getArticles.Name
-	if followerRead && asOf == "" {
-		stmt = db.getArticlesFollowerRead.Name
-	} else if followerRead {
-		stmt = fmt.Sprintf(getArticlesFollowerReadAsOfSQL, asOf)
-	}
+	// if followerRead && asOf == "" {
+	// 	stmt = db.getArticlesFollowerRead.Name
+	// } else if followerRead {
+	// 	stmt = fmt.Sprintf(getArticlesFollowerReadAsOfSQL, asOf)
+	// }
 	rows, err := db.connPool.QueryEx(ctx, stmt, nil, project, limit, offset)
 	if err != nil {
 		return nil, "", err
