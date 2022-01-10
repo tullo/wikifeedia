@@ -61,6 +61,15 @@ func New(pgurl string) (*DB, error) {
 	if err != nil {
 		return nil, err
 	}
+	conn, err := pgx.Connect(conf)
+	if err != nil {
+		return nil, err
+	}
+	if err := setupDatabase(conn); err != nil {
+		return nil, err
+	}
+	conn.Close()
+
 	conf.Database = DatabaseName
 	poolConf := pgx.ConnPoolConfig{
 		ConnConfig:     conf,
@@ -74,17 +83,17 @@ func New(pgurl string) (*DB, error) {
 		conf:     poolConf,
 		connPool: connPool,
 	}
-	if err := setupDatabase(db); err != nil {
+	if err := setupArticles(db); err != nil {
 		return nil, err
 	}
 	db.getArticles, err = connPool.Prepare("get_articles", getArticlesSQL)
 	if err != nil {
 		return nil, fmt.Errorf("failed to prepare get_articles: %v", err)
 	}
-	db.getArticlesFollowerRead, err = connPool.Prepare("get_articles_follower_read", getArticlesFollowerReadSQL)
-	if err != nil {
-		return nil, fmt.Errorf("failed to prepare get_articles_follower_read: %v", err)
-	}
+	// db.getArticlesFollowerRead, err = connPool.Prepare("get_articles_follower_read", getArticlesFollowerReadSQL)
+	// if err != nil {
+	// 	return nil, fmt.Errorf("failed to prepare get_articles_follower_read: %v", err)
+	// }
 	return db, nil
 }
 
@@ -184,11 +193,12 @@ func (db *DB) UpsertArticle(ctx context.Context, a Article) error {
 	return err
 }
 
-func setupDatabase(db *DB) error {
-	if _, err := db.connPool.Exec("CREATE DATABASE IF NOT EXISTS " + DatabaseName); err != nil {
-		return err
-	}
+func setupDatabase(c *pgx.Conn) error {
+	_, err := c.Exec("CREATE DATABASE IF NOT EXISTS " + DatabaseName)
+	return err
+}
+
+func setupArticles(db *DB) error {
 	_, err := db.connPool.Exec(articlesTable)
-	// TODO(ajwerner): validate that the table that exists matches what we expect.
 	return err
 }
