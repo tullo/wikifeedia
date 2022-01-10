@@ -73,7 +73,12 @@ func (c *Crawler) fetchNewTopArticles(ctx context.Context, project string) error
 			ta: ta,
 		}
 	}
+	var counter int
 	for i := range top.Articles {
+		if counter > 9 {
+			break
+		}
+		counter = counter + 1
 		wg.Add(1)
 		go fetchArticle(&top.Articles[i])
 	}
